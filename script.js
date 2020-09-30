@@ -2,9 +2,9 @@ let fill = '100';
 let kot = '0';
 let huq = '0';
 let sakt = '0';
+let X;
 
-
-/* function luaj(){
+function luaj(){
 
     numri = Math.floor(Math.random() * 10); 
     $("#object").html(numri);
@@ -19,10 +19,21 @@ let sakt = '0';
         iterations: Infinity
       });
     
-} */
+}
  
 
-function fillo() {       
+function nisja() {       
+  
+      fill--;
+      luaj();
+      $("#numra").html(fill);  
+  
+  }
+
+  
+  
+
+/* function fillo() {       
     setTimeout(function() {  
         numri = Math.floor(Math.random() * 10); 
         $("#object").html(numri);
@@ -42,37 +53,57 @@ function fillo() {
           fillo();           
       }                    
     }, 5000)
-  }
+  } */
 
 
 
 
-/* function fillo() {       
+function fillo() {       
+    luaj();
+    $("#numra").html(fill);  
   setTimeout(function() {  
     luaj();  
     fill--;
     $("#numra").html(fill);   
     if (fill > 0) {       
         fillo();           
-    }                    
-  }, 5000)
-} */
+    }   
+
+    if (X == undefined) {
+      kot++
+      $("#papergjigje").html(kot);  
+    }
+    X = undefined;
+  }, 5000);
+}
 
 function doSomethingWithX() {
+
     if (X == numri){
         sakt++;
         $("#teqelluar").html(sakt);
+       
       } else {
         huq++;
         $("#huq").html(huq);
       }
 }
 
-var X = 0; 
+
+/* function verifiko(){
+  if (X == numri){
+    return true;
+  } else {
+    return false;
+  }
+} */
+
+
 
 document.addEventListener('keydown', (event) => {
   var keyName = event.key;  
   X =     keyName
   doSomethingWithX();
+ // verifiko()
 }, false);
     
