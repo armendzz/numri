@@ -66,21 +66,32 @@ function fillo() {
     $("#papergjigje").html(kot);  
   }
   X = undefined;  */
+
+  /* if (fill == 0  && X == undefined) {
+    console.log("futja +1")
+  } */
       function tash() {  
             luaj();  
             fill--;
             $("#numra").html(fill);   
-            if (fill >= -1) {       
+            if (fill >= 0) {       
                 fillo();           
             }  else {
               lojambaroi();
            }
 
+           
             if (X == undefined) {
               kot++;
               $("#papergjigje").html(kot); 
             //  fill--; 
+
+            if (fill == 1 ) {
+              kot++
             }
+            }
+
+
             X = undefined;
       }
   timer = setTimeout(tash, 5000)
@@ -123,10 +134,16 @@ document.addEventListener('keydown', (event) => {
 }, false);
     
 function lojambaroi (){
+
+ /*  if (X == undefined) {
+    kot++
+  } */
   clearTimeout(timer);
   $("#gameover").addClass('d-none')
   $("#rezultati").removeClass('d-none')
   $("#rezultatiteqelluar").html(sakt)
   $("#rezultatihuq").html(huq)
   $("#rezultatipapergjigje").html(kot)
+
+  
 }
