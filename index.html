@@ -11,6 +11,9 @@
 </head>
 
 <body>
+
+    <div id="gameover" class="">
+
     <div class="d-flex justify-content-center">
         <h2 class="mt-4">Mbeten edhe <span id="numra">100</span> numra</h2>
     </div>
@@ -32,10 +35,18 @@
         </div>
     </div>
     <div class="d-flex justify-content-center">
-        <h1>Pa pergjigje: <span id="papergjigje">0</span></h1>
+      <h1> Pa pergjigje: <span id="papergjigje">0</span></h1>
     </div>
     <center><h1 class="mt-4">Shtypni numrin qe e shikoni leviz</h1></center>
    <center> <button class="btn btn-lg btn-success" onclick="fillo()">Fillo Lojen</button></center>
+
+</div>
+
+<div id="rezultati" class="d-none container mt-3">
+    <div class="alert alert-success" role="alert">Te qelluar = <span id="rezultatiteqelluar">0</span></div>
+    <div class="alert alert-danger" role="alert">Dolen huq =  <span id="rezultatihuq">0</span></div>
+    <div class="alert alert-warning" role="alert">Pa pergjigje = <span id="rezultatipapergjigje">0</span></div>
+</div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

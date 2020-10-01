@@ -1,4 +1,4 @@
-let fill = '100';
+let fill = '5';
 let kot = '0';
 let huq = '0';
 let sakt = '0';
@@ -22,14 +22,14 @@ function luaj(){
 }
  
 
-function nisja() {       
+/* function nisja() {       
   
       fill--;
       luaj();
       $("#numra").html(fill);  
   
   }
-
+ */
   
   
 
@@ -57,24 +57,36 @@ function nisja() {
 
 
 
-
 function fillo() {       
-    luaj();
-    $("#numra").html(fill);  
-  setTimeout(function() {  
-    luaj();  
-    fill--;
-    $("#numra").html(fill);   
-    if (fill > 0) {       
-        fillo();           
-    }   
+    if(fill > 0){
+  luaj();
+  $("#numra").html(fill);  
+ /*  if (X == undefined) {
+    kot =+ 0.5;
+    $("#papergjigje").html(kot);  
+  }
+  X = undefined;  */
+      function tash() {  
+            luaj();  
+            fill--;
+            $("#numra").html(fill);   
+            if (fill >= -1) {       
+                fillo();           
+            }  else {
+              lojambaroi();
+           }
 
-    if (X == undefined) {
-      kot++
-      $("#papergjigje").html(kot);  
-    }
-    X = undefined;
-  }, 5000);
+            if (X == undefined) {
+              kot++;
+              $("#papergjigje").html(kot); 
+            //  fill--; 
+            }
+            X = undefined;
+      }
+  timer = setTimeout(tash, 5000)
+ } else {
+  lojambaroi();
+ }
 }
 
 function doSomethingWithX() {
@@ -82,7 +94,10 @@ function doSomethingWithX() {
     if (X == numri){
         sakt++;
         $("#teqelluar").html(sakt);
-       
+       clearTimeout(timer);
+       fill--;
+       X = undefined;
+       fillo()
       } else {
         huq++;
         $("#huq").html(huq);
@@ -107,3 +122,11 @@ document.addEventListener('keydown', (event) => {
  // verifiko()
 }, false);
     
+function lojambaroi (){
+  clearTimeout(timer);
+  $("#gameover").addClass('d-none')
+  $("#rezultati").removeClass('d-none')
+  $("#rezultatiteqelluar").html(sakt)
+  $("#rezultatihuq").html(huq)
+  $("#rezultatipapergjigje").html(kot)
+}
