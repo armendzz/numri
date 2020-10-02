@@ -1,8 +1,24 @@
 #object {
-    font-size: 250px;
+    font-size: 150px;
 }
 
 #dritarja  {
     padding-top: 200px;
     overflow:hidden;
+}
+
+.sakt {
+    color: yellowgreen;
+}
+
+.gabim {
+    color: red !important;
+}
+
+#plusnjesakt {
+    color: yellowgreen;
+}
+
+#plusnjehuq {
+    color: tomato;
 }
