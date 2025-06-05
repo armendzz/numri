@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja e Memories së Numrave</title>
+    <style>        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100vh;
+            overflow: hidden;
+        }body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2vh;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 95vw;
+            max-width: 450px;
+            height: 98vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }        h1 {
+            font-size: clamp(1.5rem, 4vh, 2rem);
+            margin: 0 0 1vh 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+
+        h2 {
+            font-size: clamp(1.2rem, 3vh, 1.5rem);
+            margin: 0 0 1vh 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }.screen {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 0;
+        }
+
+        .screen.active {
+            display: flex;
+        }        /* Start Screen */
+        .start-description {
+            font-size: clamp(0.9rem, 2vh, 1rem);
+            margin: 0 0 2vh 0;
+            line-height: 1.4;
+            opacity: 0.9;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }        /* Game Screen */
+        .number-display {
+            font-size: clamp(4rem, 12vh, 8rem);
+            font-weight: bold;
+            margin: 1vh 0;
+            height: clamp(80px, 15vh, 120px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            flex-shrink: 0;
+            color: #ffeb3b;
+        }        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 1vh 0;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1vh 2vw;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .info-label {
+            display: block;
+            font-size: clamp(0.7rem, 1.8vh, 0.8rem);
+            opacity: 0.8;
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            font-size: clamp(1rem, 2.5vh, 1.3rem);
+            font-weight: bold;
+        }
+
+        .status-message {
+            font-size: clamp(0.9rem, 2.2vh, 1.1rem);
+            margin: 1vh 0;
+            height: clamp(20px, 4vh, 25px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .correct {
+            color: #4ade80;
+        }
+
+        .incorrect {
+            color: #f87171;
+        }
+
+        .unanswered {
+            color: #facc15;
+        }        /* Game Over Screen */
+        .main-result-display {
+            margin: 1vh 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .accuracy-circle {
+            width: clamp(120px, 20vh, 150px);
+            height: clamp(120px, 20vh, 150px);
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: pulseAccuracy 2s ease-in-out;
+        }
+
+        .accuracy-percentage {
+            font-size: clamp(1.8rem, 5vh, 2.5rem);
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .accuracy-label {
+            font-size: clamp(0.8rem, 2vh, 1rem);
+            color: white;
+            margin-top: 5px;
+            opacity: 0.9;
+        }        .detailed-results {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1vh 2vh;
+            margin: 1vh 0;
+            backdrop-filter: blur(10px);
+            flex: 1;
+            overflow-y: auto;
+            min-height: 0;
+            max-height: 30vh;
+        }.result-row {
+            display: flex;
+            align-items: center;
+            margin: 1vh 0;
+            font-size: clamp(0.9rem, 2vh, 1rem);
+            padding: 1vh 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+            margin-top: 1vh;
+            padding-top: 1vh;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .result-row.total {
+            font-size: clamp(1rem, 2.2vh, 1.1rem);
+            font-weight: bold;
+        }
+
+        .result-icon {
+            width: clamp(25px, 4vh, 30px);
+            height: clamp(25px, 4vh, 30px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: clamp(1rem, 2.5vh, 1.2rem);
+            font-weight: bold;
+        }
+
+        .result-icon.correct {
+            background: #4ade80;
+            color: white;
+        }
+
+        .result-icon.incorrect {
+            background: #f87171;
+            color: white;
+        }
+
+        .result-icon.unanswered {
+            background: #facc15;
+            color: white;
+        }
+
+        .result-text {
+            flex: 1;
+        }
+
+        .btn-large {
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            margin-top: 20px;
+        }
+
+        @keyframes pulseAccuracy {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .final-results {
+            margin: 30px 0;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .result-label {
+            font-size: 1.1rem;
+        }
+
+        .result-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: clamp(12px, 2.5vh, 15px) clamp(20px, 4vw, 30px);
+            font-size: clamp(1rem, 2.2vh, 1.1rem);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 1vh;
+            flex-shrink: 0;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-large {
+            padding: clamp(15px, 3vh, 18px) clamp(30px, 6vw, 40px);
+            font-size: clamp(1.1rem, 2.5vh, 1.3rem);
+            margin-top: 1vh;
+        }/* Number Buttons */
+        .number-buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1vh;
+            margin: 1vh 0;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            flex-shrink: 0;
+        }
+
+        .number-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: clamp(8px, 2vh, 15px);
+            font-size: clamp(1rem, 2.5vh, 1.2rem);
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: clamp(40px, 6vh, 50px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .number-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .number-btn:active {
+            transform: translateY(0);
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .number-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .number-btn:disabled:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: none;
+            box-shadow: none;
+        }        /* Responsive Design */
+        @media (max-width: 480px) {
+            .game-container {
+                padding: 1.5vh;
+                width: 98vw;
+            }
+
+            .game-info {
+                flex-direction: column;
+                gap: 0.5vh;
+            }
+
+            .info-item {
+                min-width: 100%;
+            }
+
+            .number-buttons {
+                max-width: 280px;
+                gap: 0.8vh;
+            }
+        }
+
+        /* Landscape orientation for mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .game-container {
+                height: 95vh;
+                padding: 1vh;
+            }
+
+            h1, h2 {
+                font-size: clamp(1.2rem, 3vh, 1.5rem);
+                margin: 0 0 0.5vh 0;
+            }
+
+            .accuracy-circle {
+                width: clamp(80px, 15vh, 120px);
+                height: clamp(80px, 15vh, 120px);
+            }
+
+            .detailed-results {
+                max-height: 25vh;
+                padding: 0.5vh 1vh;
+            }
+
+            .number-display {
+                height: clamp(60px, 12vh, 100px);
+            }
+        }
+
+        /* Animation for number display */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .fade-out {
+            animation: fadeOut 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.8); }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Loja e Memories së Numrave</h1>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">            <div class="start-description">
+                <p>Një numër do të shfaqet shpejt në ekran.</p>
+                <p>Mbajeni mend dhe shtypni numrin përkatës (0-9) në tastierë ose klikoni butonin!</p>
+                <p>Keni 5 sekonda për t'u përgjigjur pasi numri zhduket.</p>
+            </div>
+            <button class="btn" onclick="startGame()">Fillo Lojën</button>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-info">
+                <div class="info-item">
+                    <span class="info-label">Saktë</span>
+                    <span class="info-value" id="correct-count">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Gabim</span>
+                    <span class="info-value" id="incorrect-count">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Pa Përgjigje</span>
+                    <span class="info-value" id="unanswered-count">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Pyetja</span>
+                    <span class="info-value" id="question-count">0/5</span>
+                </div>
+            </div>
+
+            <div class="number-display" id="number-display"></div>
+              <div class="status-message" id="status-message">Përgatituni...</div>
+            
+            <!-- Number buttons for mobile/tablet -->
+            <div class="number-buttons" id="number-buttons">
+                <button class="number-btn" onclick="handleNumberClick(0)">0</button>
+                <button class="number-btn" onclick="handleNumberClick(1)">1</button>
+                <button class="number-btn" onclick="handleNumberClick(2)">2</button>
+                <button class="number-btn" onclick="handleNumberClick(3)">3</button>
+                <button class="number-btn" onclick="handleNumberClick(4)">4</button>
+                <button class="number-btn" onclick="handleNumberClick(5)">5</button>
+                <button class="number-btn" onclick="handleNumberClick(6)">6</button>
+                <button class="number-btn" onclick="handleNumberClick(7)">7</button>
+                <button class="number-btn" onclick="handleNumberClick(8)">8</button>
+                <button class="number-btn" onclick="handleNumberClick(9)">9</button>
+            </div>
+            
+            <button class="btn" onclick="endGame()">Përfundo Lojën</button>
+        </div>        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="screen">
+            <h2>Loja Përfundoi!</h2>
+            
+            <!-- Main Result Display -->
+            <div class="main-result-display">
+                <div class="accuracy-circle">
+                    <div class="accuracy-percentage" id="main-accuracy">0%</div>
+                    <div class="accuracy-label">Saktësia</div>
+                </div>
+            </div>
+
+            <!-- Detailed Results -->
+            <div class="detailed-results">
+                <div class="result-row">
+                    <span class="result-icon correct">✓</span>
+                    <span class="result-text">Saktë: <strong id="final-correct">0</strong></span>
+                </div>
+                <div class="result-row">
+                    <span class="result-icon incorrect">✗</span>
+                    <span class="result-text">Gabim: <strong id="final-incorrect">0</strong></span>
+                </div>
+                <div class="result-row">
+                    <span class="result-icon unanswered">?</span>
+                    <span class="result-text">Pa Përgjigje: <strong id="final-unanswered">0</strong></span>
+                </div>
+                <div class="result-row total">
+                    <span class="result-icon">📊</span>
+                    <span class="result-text">Gjithsej: <strong id="total-questions">0</strong></span>
+                </div>
+            </div>
+
+            <button class="btn btn-large" onclick="playAgain()">Lojë të Re</button>
+        </div>
+    </div>
+
+    <script>
+        // Game state variables
+        let gameState = {
+            isPlaying: false,
+            currentNumber: null,
+            waitingForInput: false,
+            currentQuestion: 0,
+            maxQuestions: 5,
+            scores: {
+                correct: 0,
+                incorrect: 0,
+                unanswered: 0
+            },
+            timeouts: []
+        };
+
+        // Game configuration
+        const config = {
+            displayTime: 1500,    // Time to show number (1.5 seconds)
+            responseTime: 5000,   // Time to wait for response (5 seconds)
+            delayBetweenRounds: 1000  // Delay between rounds (1 second)
+        };        // DOM elements
+        const screens = {
+            start: document.getElementById('start-screen'),
+            game: document.getElementById('game-screen'),
+            gameOver: document.getElementById('game-over-screen')
+        };
+
+        // Check if all screen elements exist
+        console.log('Screen elements:', screens);
+
+        const elements = {
+            numberDisplay: document.getElementById('number-display'),
+            statusMessage: document.getElementById('status-message'),
+            correctCount: document.getElementById('correct-count'),
+            incorrectCount: document.getElementById('incorrect-count'),
+            unansweredCount: document.getElementById('unanswered-count'),
+            questionCount: document.getElementById('question-count'),
+            numberButtons: document.getElementById('number-buttons')
+        };
+
+        /**
+         * Handle number button clicks
+         */
+        function handleNumberClick(number) {
+            if (!gameState.waitingForInput || !gameState.isPlaying) return;
+            
+            if (number === gameState.currentNumber) {
+                handleAnswer('correct');
+            } else {
+                handleAnswer('incorrect');
+            }
+        }
+
+        /**
+         * Enable or disable number buttons
+         */
+        function setNumberButtonsState(enabled) {
+            const buttons = elements.numberButtons.querySelectorAll('.number-btn');
+            buttons.forEach(button => {
+                button.disabled = !enabled;
+            });
+        }
+
+        /**
+         * Initialize the game and show the game screen
+         */
+        function startGame() {
+            // Reset game state
+            gameState.isPlaying = true;
+            gameState.currentQuestion = 0;
+            gameState.scores = { correct: 0, incorrect: 0, unanswered: 0 };
+            gameState.timeouts = [];
+
+            // Switch to game screen
+            showScreen('game');
+            
+            // Update score display
+            updateScoreDisplay();
+
+            // Disable number buttons initially
+            setNumberButtonsState(false);
+            
+            // Start the first round after a brief delay
+            setTimeout(() => {
+                nextRound();
+            }, 1000);
+
+            // Add keyboard event listener
+            document.addEventListener('keydown', handleKeyPress);
+        }
+
+        /**
+         * Generate and display the next number
+         */
+        function nextRound() {
+            if (!gameState.isPlaying) return;
+
+            // Check if we've reached the maximum number of questions
+            if (gameState.currentQuestion >= gameState.maxQuestions) {
+                endGame();
+                return;
+            }
+
+            // Increment question counter
+            gameState.currentQuestion++;
+            updateScoreDisplay();
+
+            // Clear any existing timeouts
+            clearAllTimeouts();
+
+            // Generate random number (0-9)
+            gameState.currentNumber = Math.floor(Math.random() * 10);
+            console.log('Generated number:', gameState.currentNumber); // Debug log
+            gameState.waitingForInput = false;
+
+            // Update status
+            elements.statusMessage.textContent = 'Mbani mend këtë numër!';
+            elements.statusMessage.className = 'status-message';
+
+            // Disable number buttons while showing number
+            setNumberButtonsState(false);
+
+            // Display the number with animation
+            elements.numberDisplay.textContent = gameState.currentNumber;
+            elements.numberDisplay.className = 'number-display fade-in';
+
+            // Hide the number after display time
+            const hideTimeout = setTimeout(() => {
+                elements.numberDisplay.className = 'number-display fade-out';
+                  setTimeout(() => {
+                    elements.numberDisplay.textContent = '?';
+                    elements.statusMessage.textContent = 'Shtypni numrin!';
+                    gameState.waitingForInput = true;
+
+                    // Enable number buttons for input
+                    setNumberButtonsState(true);
+
+                    // Set timeout for unanswered question
+                    const responseTimeout = setTimeout(() => {
+                        if (gameState.waitingForInput) {
+                            handleAnswer('unanswered');
+                        }
+                    }, config.responseTime);
+
+                    gameState.timeouts.push(responseTimeout);
+                }, 300);
+            }, config.displayTime);
+
+            gameState.timeouts.push(hideTimeout);
+        }
+
+        /**
+         * Handle keyboard input from the player
+         */
+        function handleKeyPress(event) {
+            // Only process number keys (0-9) when waiting for input
+            if (!gameState.waitingForInput || !gameState.isPlaying) return;
+
+            const key = event.key;
+            if (key >= '0' && key <= '9') {
+                const guessedNumber = parseInt(key);
+                
+                if (guessedNumber === gameState.currentNumber) {
+                    handleAnswer('correct');
+                } else {
+                    handleAnswer('incorrect');
+                }
+            }
+        }        /**
+         * Process the player's answer and update the game state
+         */
+        function handleAnswer(result) {
+            if (!gameState.waitingForInput) return;
+            
+            gameState.waitingForInput = false;
+            clearAllTimeouts();
+
+            // Disable number buttons after answer
+            setNumberButtonsState(false);
+
+            // Update scores
+            gameState.scores[result]++;
+            updateScoreDisplay();
+
+            // Show feedback
+            showFeedback(result);
+
+            // Schedule next round
+            setTimeout(() => {
+                if (gameState.isPlaying) {
+                    nextRound();
+                }
+            }, config.delayBetweenRounds);
+        }
+
+        /**
+         * Display feedback message based on the result
+         */
+        function showFeedback(result) {
+            const messages = {
+                correct: 'Saktë! 🎉',
+                incorrect: `Gabim! Numri ishte ${gameState.currentNumber}`,
+                unanswered: `Koha mbaroi! Numri ishte ${gameState.currentNumber}`
+            };
+
+            elements.statusMessage.textContent = messages[result];
+            elements.statusMessage.className = `status-message ${result}`;
+        }
+
+        /**
+         * Update the score display on the game screen
+         */
+        function updateScoreDisplay() {
+            elements.correctCount.textContent = gameState.scores.correct;
+            elements.incorrectCount.textContent = gameState.scores.incorrect;
+            elements.unansweredCount.textContent = gameState.scores.unanswered;
+            elements.questionCount.textContent = `${gameState.currentQuestion}/${gameState.maxQuestions}`;
+        }        /**
+         * End the current game and show results
+         */
+        function endGame() {
+            gameState.isPlaying = false;
+            clearAllTimeouts();
+            
+            // Disable number buttons
+            setNumberButtonsState(false);
+            
+            // Remove keyboard event listener
+            document.removeEventListener('keydown', handleKeyPress);
+
+            // Calculate final statistics
+            const total = gameState.scores.correct + gameState.scores.incorrect + gameState.scores.unanswered;
+            const accuracy = total > 0 ? Math.round((gameState.scores.correct / total) * 100) : 0;
+
+            // Update final results display
+            document.getElementById('total-questions').textContent = total;
+            document.getElementById('final-correct').textContent = gameState.scores.correct;
+            document.getElementById('final-incorrect').textContent = gameState.scores.incorrect;
+            document.getElementById('final-unanswered').textContent = gameState.scores.unanswered;
+            document.getElementById('main-accuracy').textContent = accuracy + '%';
+
+            // Update accuracy circle color based on performance
+            const accuracyCircle = document.querySelector('.accuracy-circle');
+            if (accuracy >= 80) {
+                accuracyCircle.style.background = 'linear-gradient(135deg, #4ade80 0%, #22c55e 100%)';
+            } else if (accuracy >= 60) {
+                accuracyCircle.style.background = 'linear-gradient(135deg, #facc15 0%, #f59e0b 100%)';
+            } else {
+                accuracyCircle.style.background = 'linear-gradient(135deg, #f87171 0%, #ef4444 100%)';
+            }            // Show game over screen
+            showScreen('gameOver');
+            console.log('Switching to game-over screen'); // Debug log
+        }
+
+        /**
+         * Reset the game and return to start screen
+         */
+        function playAgain() {
+            // Reset all game state
+            gameState.isPlaying = false;
+            gameState.waitingForInput = false;
+            gameState.currentNumber = null;
+            gameState.currentQuestion = 0;
+            clearAllTimeouts();
+
+            // Reset display elements
+            elements.numberDisplay.textContent = '';
+            elements.statusMessage.textContent = 'Përgatituni...';
+            elements.statusMessage.className = 'status-message';
+
+            // Show start screen
+            showScreen('start');
+        }        /**
+         * Switch between different game screens
+         */
+        function showScreen(screenName) {
+            console.log('Showing screen:', screenName); // Debug log
+            console.log('Available screens:', Object.keys(screens)); // Debug log
+            
+            // Hide all screens
+            Object.values(screens).forEach(screen => {
+                if (screen && screen.classList) {
+                    screen.classList.remove('active');
+                } else {
+                    console.error('Screen element is null or undefined:', screen);
+                }
+            });
+
+            // Show the requested screen
+            const targetScreen = screens[screenName];
+            if (targetScreen && targetScreen.classList) {
+                targetScreen.classList.add('active');
+                console.log('Successfully switched to screen:', screenName);
+            } else {
+                console.error('Target screen not found or invalid:', screenName, targetScreen);
+            }
+        }
+
+        /**
+         * Clear all active timeouts
+         */
+        function clearAllTimeouts() {
+            gameState.timeouts.forEach(timeout => clearTimeout(timeout));
+            gameState.timeouts = [];
+        }
+
+        // Prevent accidental page refresh during game
+        window.addEventListener('beforeunload', (event) => {
+            if (gameState.isPlaying) {
+                event.preventDefault();
+                event.returnValue = '';
+            }
+        });
+    </script>
+</body>
+</html>

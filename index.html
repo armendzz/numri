@@ -1,73 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Numri Games - Math Game Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .game-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+        }
+        
+        .background-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+        }
+        
+        .title-gradient {
+            background: linear-gradient(45deg, #ffffff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .game-icon {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .coming-soon {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+        }
+    </style>
 </head>
-
-<body>
-
-    <div id="gameover" class="">
-
-    <div class="d-flex justify-content-center">
-        <h2 class="mt-4">Mbeten edhe <span id="numra">100</span> numra</h2>
-    </div>
-    <div class="d-flex justify-content-center">
-      
-        <div class="col-sm-2 border border-info mt-5">
-       
-            <h2>dolen huq</h2>
-            <div class="row">
-                <div class="col-6"><h1 id="huq">0</h1></div>
-                <div class="col-6"> <h1 class="d-none" id="plusnjehuq">+1</h1></div>
-             </div>
+<body class="background-gradient">
+    <!-- Header -->
+    <header class="text-center py-16">
+        <div class="floating">
+            <h1 class="text-6xl font-bold title-gradient mb-4">🎮 Numri Games</h1>
+            <p class="text-xl text-white/80 max-w-2xl mx-auto px-4">
+                Welcome to our collection of exciting math and number games! Challenge your mind and have fun while learning.
+            </p>
         </div>
-        <div class="col-sm-5 d-flex justify-content-center border border-info mt-5" id="dritarja">
-          
-            <div class="col-md-1" id="object">
-                
+    </header>
+
+    <!-- Games Grid -->
+    <main class="container mx-auto px-4 pb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            
+            <!-- Number Drop Challenge -->
+            <div class="game-card rounded-2xl p-8 text-center cursor-pointer" onclick="location.href='guesnumber/'">
+                <div class="game-icon w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center">
+                    <i class="fas fa-arrow-down text-4xl text-white"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">Number Drop Challenge</h3>
+                <p class="text-white/80 mb-6 leading-relaxed">
+                    Watch numbers fall from the sky and catch them to build your score! Test your reflexes and number recognition skills in this exciting dropping game.
+                </p>
+                <div class="flex justify-center items-center space-x-4 text-sm text-white/60">
+                    <span><i class="fas fa-clock mr-1"></i> Quick Play</span>
+                    <span><i class="fas fa-trophy mr-1"></i> High Score</span>
+                    <span><i class="fas fa-bolt mr-1"></i> Reflexes</span>
+                </div>
             </div>
+
+            <!-- Loja e Numrave -->
+            <div class="game-card rounded-2xl p-8 text-center cursor-pointer" onclick="location.href='guesnumber2/'">
+                <div class="game-icon w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center">
+                    <i class="fas fa-dice text-4xl text-white"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">Loja e Numrave</h3>
+                <p class="text-white/80 mb-6 leading-relaxed">
+                    The classic number guessing game! Try to guess the secret number using logic and deduction. Perfect for developing analytical thinking.
+                </p>
+                <div class="flex justify-center items-center space-x-4 text-sm text-white/60">
+                    <span><i class="fas fa-brain mr-1"></i> Logic</span>
+                    <span><i class="fas fa-search mr-1"></i> Deduction</span>
+                    <span><i class="fas fa-target mr-1"></i> Precision</span>
+                </div>
+            </div>
+
+            <!-- Number Memory Game -->
+            <div class="game-card rounded-2xl p-8 text-center cursor-pointer" onclick="location.href='numbermemorz/'">
+                <div class="game-icon w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center">
+                    <i class="fas fa-brain text-4xl text-white"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">Loja e Memories së Numrave</h3>
+                <p class="text-white/80 mb-6 leading-relaxed">
+                    Train your memory with numbers! Remember sequences, patterns, and improve your cognitive abilities through fun memory challenges.
+                </p>
+                <div class="flex justify-center items-center space-x-4 text-sm text-white/60">
+                    <span><i class="fas fa-memory mr-1"></i> Memory</span>
+                    <span><i class="fas fa-list-ol mr-1"></i> Sequences</span>
+                    <span><i class="fas fa-graduation-cap mr-1"></i> Learning</span>
+                </div>
+            </div>
+
+            <!-- Math Game (Coming Soon) -->
+            <div class="game-card coming-soon rounded-2xl p-8 text-center">
+                <div class="game-icon w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center opacity-60">
+                    <i class="fas fa-calculator text-4xl text-white"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">Math Game</h3>
+                <p class="text-white/60 mb-6 leading-relaxed">
+                    An exciting math challenge game is coming soon! Practice arithmetic operations and solve equations in a fun, interactive way.
+                </p>
+                <div class="flex justify-center items-center space-x-4 text-sm text-white/40">
+                    <span><i class="fas fa-plus mr-1"></i> Arithmetic</span>
+                    <span><i class="fas fa-clock mr-1"></i> Coming Soon</span>
+                    <span><i class="fas fa-tools mr-1"></i> In Development</span>
+                </div>
+                <div class="mt-4">
+                    <span class="bg-white/20 text-white/80 px-4 py-2 rounded-full text-sm font-medium">
+                        🚧 Coming Soon
+                    </span>
+                </div>
+            </div>
+
         </div>
-        <div class="col-sm-2 border border-info mt-5">
+    </main>
 
-            <h2>u qelluan</h2>
-            <div class="row">
-            <div class="col-6"><h1 class="d-none" id="plusnjesakt">+1</h1> </div>
-            <div class="col-6"> <h1 id="teqelluar">0</h1></div>
-             </div>
+    <!-- Footer -->
+    <footer class="text-center py-8 text-white/60">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="text-lg mb-2">🎯 Choose your challenge and start playing!</p>
+            <p class="text-sm">Improve your math skills while having fun • Made with ❤️ for learning</p>
         </div>
-    </div>
-    <div class="d-flex justify-content-center">
-      <h1> Pa pergjigje: <span id="papergjigje">0</span></h1>
-    </div>
-    <center><h1 class="mt-4">Shtypni numrin qe e shikoni leviz</h1></center>
-   <center> <button class="btn btn-lg btn-success" onclick="fillo()">Fillo Lojen</button></center>
+    </footer>
 
-</div>
+    <script>
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click sound effect (optional)
+            const gameCards = document.querySelectorAll('.game-card:not(.coming-soon)');
+            
+            gameCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
 
-<div id="rezultati" class="d-none container mt-3">
-    <div class="alert alert-success" role="alert">Te qelluar = <span id="rezultatiteqelluar">0</span></div>
-    <div class="alert alert-danger" role="alert">Dolen huq =  <span id="rezultatihuq">0</span></div>
-    <div class="alert alert-warning" role="alert">Pa pergjigje = <span id="rezultatipapergjigje">0</span></div>
-</div>
- <!--    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script> -->
-        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    
-    <script src="script.js"></script>
-
+            // Animate game icons on load
+            const gameIcons = document.querySelectorAll('.game-icon');
+            gameIcons.forEach((icon, index) => {
+                setTimeout(() => {
+                    icon.style.animation = `gradientShift 3s ease infinite ${index * 0.5}s`;
+                }, index * 200);
+            });
+        });
+    </script>
 </body>
-
 </html>

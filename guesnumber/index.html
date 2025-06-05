@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Number Drop Challenge</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'fall': 'fall 4s linear infinite',
+                        'bounce-in': 'bounceIn 0.5s ease-out',
+                        'pulse-score': 'pulseScore 0.8s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 h-screen overflow-hidden text-white flex flex-col">    <!-- Game Screen -->
+    <div id="gameover" class="flex-1 flex flex-col h-full p-2 sm:p-4">
+        <!-- Compact Header -->
+        <div class="text-center mb-2 sm:mb-4">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 bg-gradient-to-r from-yellow-400 to-pink-400 bg-clip-text text-transparent">
+                Sfida e Numrave që Bien
+            </h1>
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-2 inline-block">
+                <span class="text-lg sm:text-xl font-semibold">Numra: 
+                    <span id="numra" class="text-yellow-400 font-bold">100</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Main Game Layout -->
+        <div class="flex-1 flex flex-col lg:flex-row gap-2 sm:gap-4">
+            <!-- Left Side: Scores (Mobile: Top) -->
+            <div class="lg:w-48 flex lg:flex-col gap-2">
+                <!-- Correct Score -->
+                <div class="flex-1 bg-green-500/20 backdrop-blur-sm border border-green-400 rounded-lg p-2 sm:p-3 text-center">
+                    <div class="text-sm sm:text-base font-semibold text-green-300">✓ Saktë</div>
+                    <div class="flex items-center justify-center gap-1">
+                        <span class="text-2xl sm:text-3xl font-bold text-green-400" id="teqelluar">0</span>
+                        <span class="text-lg font-bold text-green-400 opacity-0 transition-all duration-300" id="plusnjesakt">+1</span>
+                    </div>
+                </div>
+
+                <!-- Wrong Score -->
+                <div class="flex-1 bg-red-500/20 backdrop-blur-sm border border-red-400 rounded-lg p-2 sm:p-3 text-center">
+                    <div class="text-sm sm:text-base font-semibold text-red-300">✗ Gabim</div>
+                    <div class="flex items-center justify-center gap-1">
+                        <span class="text-lg font-bold text-red-400 opacity-0 transition-all duration-300" id="plusnjehuq">+1</span>
+                        <span class="text-2xl sm:text-3xl font-bold text-red-400" id="huq">0</span>
+                    </div>
+                </div>
+
+                <!-- Missed Score (Mobile: Hidden, shown as compact) -->
+                <div class="lg:flex-1 bg-orange-500/20 backdrop-blur-sm border border-orange-400 rounded-lg p-2 sm:p-3 text-center">
+                    <div class="text-sm sm:text-base font-semibold text-orange-300">⏱ Pa përgjigje</div>
+                    <div class="text-2xl sm:text-3xl font-bold text-orange-400" id="papergjigje">0</div>
+                </div>
+            </div>
+
+            <!-- Center: Game Window -->
+            <div class="flex-1 flex flex-col">
+                <div class="bg-white/10 backdrop-blur-sm border-2 border-blue-400 rounded-xl relative overflow-hidden flex-1 min-h-0" 
+                     id="dritarja">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/10 to-transparent"></div>
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl sm:text-6xl lg:text-8xl font-bold text-center transition-all duration-300" 
+                         id="object">
+                    </div>
+                    <!-- Target zone indicator -->
+                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-yellow-400/50 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Controls -->
+        <div class="mt-2 sm:mt-4 space-y-2 sm:space-y-4">
+            <!-- Start Button -->
+            <div class="text-center">
+                <button class="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 
+                             text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-lg text-base sm:text-lg transition-all duration-300 
+                             transform hover:scale-105 shadow-lg hover:shadow-xl" 
+                        id="startButton" onclick="toggleGame()">
+                    🎮 Fillo Lojën
+                </button>
+            </div>
+
+            <!-- Number Buttons -->
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-2 sm:p-4">
+                <div class="text-center mb-2">
+                    <span class="text-sm sm:text-base font-semibold">
+                        <span class="hidden sm:inline">🎹 Përdor Tastet 0-9 ose Kliko</span>
+                        <span class="sm:hidden">Kliko Numrat</span>
+                    </span>
+                </div>
+                <div class="grid grid-cols-5 gap-1 sm:gap-2" id="numberButtons">
+                    <button class="number-btn bg-gray-700 hover:bg-gray-600 text-white px-2 py-2 sm:px-3 sm:py-3 rounded text-sm sm:text-lg font-mono font-bold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" onclick="handleNumberClick(0)">0</button>
+                    <button class="number-btn bg-gray-700 hover:bg-gray-600 text-white px-2 py-2 sm:px-3 sm:py-3 rounded text-sm sm:text-lg font-mono font-bold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" onclick="handleNumberClick(1)">1</button>
+                    <button class="number-btn bg-gray-700 hover:bg-gray-600 text-white px-2 py-2 sm:px-3 sm:py-3 rounded text-sm sm:text-lg font-mono font-bold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" onclick="handleNumberClick(2)">2</button>
+                    <button class="number-btn bg-gray-700 hover:bg-gray-600 text-white px-2 py-2 sm:px-3 sm:py-3 rounded text-sm sm:text-lg font-mono font-bold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" onclick="handleNumberClick(3)">3</button>
+                    <button class="number-btn bg-gray-700 hover:bg-gray-600 text-white px-2 py-2 sm:px-3 sm:py-3 rounded text-sm sm:text-lg font-mono font-bold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" onclick="handleNumberClick(4)">4</button>
+                    <button class="number-btn bg-gray-700 hover:bg-gray-600 text-white px-2 py-2 sm:px-3 sm:py-3 rounded text-sm sm:text-lg font-mono font-bold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" onclick="handleNumberClick(5)">5</button>
+                    <button class="number-btn bg-gray-700 hover:bg-gray-600 text-white px-2 py-2 sm:px-3 sm:py-3 rounded text-sm sm:text-lg font-mono font-bold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" onclick="handleNumberClick(6)">6</button>
+                    <button class="number-btn bg-gray-700 hover:bg-gray-600 text-white px-2 py-2 sm:px-3 sm:py-3 rounded text-sm sm:text-lg font-mono font-bold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" onclick="handleNumberClick(7)">7</button>
+                    <button class="number-btn bg-gray-700 hover:bg-gray-600 text-white px-2 py-2 sm:px-3 sm:py-3 rounded text-sm sm:text-lg font-mono font-bold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" onclick="handleNumberClick(8)">8</button>
+                    <button class="number-btn bg-gray-700 hover:bg-gray-600 text-white px-2 py-2 sm:px-3 sm:py-3 rounded text-sm sm:text-lg font-mono font-bold transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" onclick="handleNumberClick(9)">9</button>
+                </div>
+            </div>
+        </div>
+    </div>    <!-- Results Screen -->
+    <div id="rezultati" class="hidden flex-1 flex flex-col justify-center items-center p-4">
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 max-w-lg w-full">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-yellow-400 to-pink-400 bg-clip-text text-transparent text-center">
+                🎉 Loja Përfundoi!
+            </h1>
+            
+            <div class="grid grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div class="bg-green-500/20 border border-green-400 rounded-lg p-3 sm:p-4 text-center">
+                    <div class="text-xl sm:text-2xl mb-1">✓</div>
+                    <div class="text-sm sm:text-base font-semibold text-green-300">Saktë</div>
+                    <div class="text-xl sm:text-2xl font-bold text-green-400" id="rezultatiteqelluar">0</div>
+                </div>
+                
+                <div class="bg-red-500/20 border border-red-400 rounded-lg p-3 sm:p-4 text-center">
+                    <div class="text-xl sm:text-2xl mb-1">✗</div>
+                    <div class="text-sm sm:text-base font-semibold text-red-300">Gabim</div>
+                    <div class="text-xl sm:text-2xl font-bold text-red-400" id="rezultatihuq">0</div>
+                </div>
+                
+                <div class="bg-orange-500/20 border border-orange-400 rounded-lg p-3 sm:p-4 text-center">
+                    <div class="text-xl sm:text-2xl mb-1">⏱</div>
+                    <div class="text-sm sm:text-base font-semibold text-orange-300">Pa përgjigje</div>
+                    <div class="text-xl sm:text-2xl font-bold text-orange-400" id="rezultatipapergjigje">0</div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 
+                             text-white font-bold py-3 px-6 rounded-xl text-lg transition-all duration-300 
+                             transform hover:scale-105 shadow-lg hover:shadow-xl" 
+                        onclick="location.reload()">
+                    🔄 Luaj Përsëri
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
