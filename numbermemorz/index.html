@@ -13,19 +13,18 @@
 
         html, body {
             height: 100vh;
-            overflow: hidden;        }body {
+            overflow: hidden;        }        body {
             font-family: 'Fredoka', 'Arial', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            margin-bottom: 20vh; /* Space for Safari URL bar */
-        }
-
-        .game-container {
+            padding-bottom: 20vh; /* Space for Safari URL bar */
+        }        .game-container {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 20px;
@@ -35,11 +34,12 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             width: 95vw;
             max-width: 450px;
-            height: 98vh;
+            height: calc(100vh - 25vh);
+            max-height: calc(100vh - 25vh);
             display: flex;
             flex-direction: column;
             overflow: hidden;
-        }        h1 {
+        }h1 {
             font-size: clamp(1.5rem, 4vh, 2rem);
             margin: 0 0 1vh 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -290,7 +290,7 @@
             padding: clamp(15px, 3vh, 18px) clamp(30px, 6vw, 40px);
             font-size: clamp(1.1rem, 2.5vh, 1.3rem);
             margin-top: 1vh;
-        }/* Number Buttons */
+        }        /* Number Buttons */
         .number-buttons {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -300,6 +300,7 @@
             margin-left: auto;
             margin-right: auto;
             flex-shrink: 0;
+            padding-bottom: 2vh; /* Ensure buttons are above Safari URL bar */
         }
 
         .number-btn {
@@ -344,12 +345,14 @@
         }        /* Responsive Design */
         @media (max-width: 480px) {
             body {
-                margin-bottom: 20vh; /* Extra space for Safari URL bar */
+                padding-bottom: 25vh; /* Extra space for Safari URL bar */
             }
             
             .game-container {
                 padding: 1.5vh;
                 width: 98vw;
+                height: calc(100vh - 30vh);
+                max-height: calc(100vh - 30vh);
             }
 
             .game-info {
@@ -364,13 +367,47 @@
             .number-buttons {
                 max-width: 280px;
                 gap: 0.8vh;
+                margin-bottom: 5vh; /* Extra space above Safari URL bar */
             }
         }
 
-        /* Landscape orientation for mobile */
-        @media (max-height: 500px) and (orientation: landscape) {
+        /* Touch devices (Safari mobile) */
+        @media (hover: none) and (pointer: coarse) {
+            body {
+                padding-bottom: 30vh !important;
+            }
+            
             .game-container {
-                height: 95vh;
+                height: calc(100vh - 35vh) !important;
+                max-height: calc(100vh - 35vh) !important;
+            }
+            
+            .number-buttons {
+                margin-bottom: 8vh !important;
+            }
+        }
+
+        /* Safari specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            @media (max-width: 640px) {
+                body {
+                    padding-bottom: 35vh !important;
+                }
+                
+                .game-container {
+                    height: calc(100vh - 40vh) !important;
+                    max-height: calc(100vh - 40vh) !important;
+                }
+            }
+        }        /* Landscape orientation for mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            body {
+                padding-bottom: 15vh;
+            }
+            
+            .game-container {
+                height: calc(100vh - 20vh);
+                max-height: calc(100vh - 20vh);
                 padding: 1vh;
             }
 
@@ -391,6 +428,11 @@
 
             .number-display {
                 height: clamp(60px, 12vh, 100px);
+            }
+            
+            .number-buttons {
+                gap: 0.5vh;
+                margin-bottom: 3vh;
             }
         }
 
@@ -500,9 +542,20 @@
 
             <button class="btn btn-large" onclick="playAgain()">Lojë të Re</button>
         </div>
-    </div>
+    </div>    <script>
+        // Fix Safari URL bar viewport issue
+        function setDynamicVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
 
-    <script>
+        // Set on load and resize
+        window.addEventListener('load', setDynamicVH);
+        window.addEventListener('resize', setDynamicVH);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(setDynamicVH, 100);
+        });
+
         // Game state variables
         let gameState = {
             isPlaying: false,

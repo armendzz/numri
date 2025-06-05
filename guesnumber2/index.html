@@ -13,11 +13,12 @@
             font-family: 'Fredoka', 'Comic Sans MS', cursive, sans-serif;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
             min-height: 100vh;
+            height: calc(var(--vh, 1vh) * 100);
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            margin-bottom: 20vh; /* Space for Safari URL bar */
+            padding-bottom: 25vh; /* Space for Safari URL bar */
         }
 
         .game-container {
@@ -170,13 +171,11 @@
         }        .emoji {
             font-size: 1.5em;
             margin: 0 10px;
-        }
-
-        /* Mobile responsive styles */
+        }        /* Mobile responsive styles */
         @media (max-width: 600px) {
             body {
                 padding: 10px;
-                margin-bottom: 20vh; /* Extra space for Safari URL bar */
+                padding-bottom: 30vh; /* Extra space for Safari URL bar */
             }
             
             .game-container {
@@ -209,6 +208,23 @@
             
             .message {
                 font-size: 1.1em;
+                margin-bottom: 5vh; /* Extra space above Safari URL bar */
+            }
+        }
+
+        /* Touch devices (Safari mobile) */
+        @media (hover: none) and (pointer: coarse) {
+            body {
+                padding-bottom: 35vh !important;
+            }
+        }
+
+        /* Safari specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            @media (max-width: 640px) {
+                body {
+                    padding-bottom: 40vh !important;
+                }
             }
         }
     </style>
@@ -236,9 +252,20 @@
         </div>
         
         <div id="attempts" class="attempts">Përpjekje: 0</div>
-    </div>
+    </div>    <script>
+        // Fix Safari URL bar viewport issue
+        function setDynamicVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
 
-    <script>
+        // Set on load and resize
+        window.addEventListener('load', setDynamicVH);
+        window.addEventListener('resize', setDynamicVH);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(setDynamicVH, 100);
+        });
+
         let secretNumber = Math.floor(Math.random() * 20) + 1;
         let attempts = 0;
         let gameWon = false;
