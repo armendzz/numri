@@ -8,7 +8,8 @@ body {
     font-family: 'Comic Sans MS', cursive, sans-serif;
     background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
     min-height: 100vh;
-    padding: 20px;
+    padding: 10px;
+    overflow-x: hidden;
 }
 
 .game-container {
@@ -16,8 +17,9 @@ body {
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
-    padding: 20px;
+    padding: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20vh; /* Extra space for Safari URL bar */
 }
 
 .header {
@@ -189,12 +191,32 @@ button:active {
 
 /* Responsive design */
 @media (max-width: 600px) {
+    body {
+        padding: 5px;
+        margin-bottom: 20vh; /* Extra margin for Safari URL bar */
+    }
+    
+    .game-container {
+        padding: 10px;
+        margin-bottom: 20vh; /* Extra space for Safari URL bar */
+    }
+    
+    .header {
+        margin-bottom: 10px;
+    }
+    
     .header h1 {
-        font-size: 2em;
+        font-size: 1.8em;
+    }
+    
+    .score {
+        padding: 8px 15px;
+        font-size: 1.2em;
     }
     
     .game-area {
-        height: 300px;
+        height: 250px; /* Reduced height to fit on screen */
+        margin-bottom: 15px;
     }
     
     .turtle {
@@ -205,8 +227,29 @@ button:active {
         font-size: 25px;
     }
     
+    .controls {
+        margin-bottom: 15px;
+    }
+    
+    .controls p {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+    
     button {
-        padding: 12px 15px;
-        font-size: 1.2em;
+        padding: 10px 12px;
+        font-size: 1.1em;
+    }
+    
+    .instructions {
+        padding: 15px;
+    }
+    
+    .instructions h3 {
+        font-size: 1.1em;
+    }
+    
+    .instructions li {
+        font-size: 1em;
     }
 }

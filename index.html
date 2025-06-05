@@ -62,10 +62,20 @@
             opacity: 0.6;
             cursor: not-allowed;
         }
-        
-        .coming-soon:hover {
+          .coming-soon:hover {
             transform: none;
             box-shadow: none;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            body {
+                margin-bottom: 20vh; /* Extra space for Safari URL bar */
+            }
+            
+            .background-gradient {
+                padding-bottom: 20vh; /* Extra space for Safari URL bar */
+            }
         }
     </style>
 </head>
