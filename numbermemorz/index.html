@@ -23,7 +23,7 @@
             align-items: center;
             justify-content: center;
             color: white;
-            padding-bottom: 20vh; /* Space for Safari URL bar */
+            padding-bottom: 10vh; /* Space for Safari URL bar */
         }        .game-container {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -34,8 +34,8 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             width: 95vw;
             max-width: 450px;
-            height: calc(100vh - 25vh);
-            max-height: calc(100vh - 25vh);
+            height: calc(100vh - 15vh);
+            max-height: calc(100vh - 15vh);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -345,14 +345,14 @@
         }        /* Responsive Design */
         @media (max-width: 480px) {
             body {
-                padding-bottom: 25vh; /* Extra space for Safari URL bar */
+                padding-bottom: 12vh; /* Extra space for Safari URL bar */
             }
             
             .game-container {
                 padding: 1.5vh;
                 width: 98vw;
-                height: calc(100vh - 30vh);
-                max-height: calc(100vh - 30vh);
+                height: calc(100vh - 17vh);
+                max-height: calc(100vh - 17vh);
             }
 
             .game-info {
@@ -367,23 +367,23 @@
             .number-buttons {
                 max-width: 280px;
                 gap: 0.8vh;
-                margin-bottom: 5vh; /* Extra space above Safari URL bar */
+                margin-bottom: 2vh; /* Extra space above Safari URL bar */
             }
         }
 
         /* Touch devices (Safari mobile) */
         @media (hover: none) and (pointer: coarse) {
             body {
-                padding-bottom: 30vh !important;
+                padding-bottom: 15vh !important;
             }
             
             .game-container {
-                height: calc(100vh - 35vh) !important;
-                max-height: calc(100vh - 35vh) !important;
+                height: calc(100vh - 20vh) !important;
+                max-height: calc(100vh - 20vh) !important;
             }
             
             .number-buttons {
-                margin-bottom: 8vh !important;
+                margin-bottom: 3vh !important;
             }
         }
 
@@ -391,23 +391,23 @@
         @supports (-webkit-touch-callout: none) {
             @media (max-width: 640px) {
                 body {
-                    padding-bottom: 35vh !important;
+                    padding-bottom: 15vh !important;
                 }
                 
                 .game-container {
-                    height: calc(100vh - 40vh) !important;
-                    max-height: calc(100vh - 40vh) !important;
+                    height: calc(100vh - 20vh) !important;
+                    max-height: calc(100vh - 20vh) !important;
                 }
             }
         }        /* Landscape orientation for mobile */
         @media (max-height: 500px) and (orientation: landscape) {
             body {
-                padding-bottom: 15vh;
+                padding-bottom: 8vh;
             }
             
             .game-container {
-                height: calc(100vh - 20vh);
-                max-height: calc(100vh - 20vh);
+                height: calc(100vh - 12vh);
+                max-height: calc(100vh - 12vh);
                 padding: 1vh;
             }
 

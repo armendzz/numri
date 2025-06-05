@@ -16,7 +16,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    padding-bottom: 25vh; /* Space for Safari URL bar */
+    padding-bottom: 12vh; /* Space for Safari URL bar */
 }
 
 .container {

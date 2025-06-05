@@ -118,7 +118,7 @@
 @media (max-width: 640px) {
     body {
         font-size: 14px;
-        padding-bottom: 25vh; /* Extra space for Safari URL bar */
+        padding-bottom: 12vh; /* Extra space for Safari URL bar */
     }
     
     #object {
@@ -129,19 +129,17 @@
         padding: 0.5rem;
         font-size: 0.875rem;
         min-height: 2.5rem;
-    }
-      #numberButtons {
+    }    #numberButtons {
         gap: 0.25rem;
-        margin-bottom: 10vh; /* Ensure buttons are above Safari URL bar */
+        margin-bottom: 3vh; /* Ensure buttons are above Safari URL bar */
     }
       /* Compact layout for very small screens */
     .lg\:w-48 {
         width: 100%;
     }
-    
-    /* Ensure game container has proper spacing */
+      /* Ensure game container has proper spacing */
     #gameover {
-        padding-bottom: 15vh !important;
+        padding-bottom: 8vh !important;
     }
 }
 
@@ -171,7 +169,7 @@
 @media (max-height: 600px) {
     body {
         font-size: 12px;
-        padding-bottom: 20vh; /* Extra space for Safari URL bar on short screens */
+        padding-bottom: 10vh; /* Extra space for Safari URL bar on short screens */
     }
     
     #object {
@@ -217,7 +215,7 @@ html, body {
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
     body {
-        padding-bottom: 30vh; /* Extra space for Safari URL bar on touch devices */
+        padding-bottom: 15vh; /* Extra space for Safari URL bar on touch devices */
     }
     
     .number-btn {
@@ -287,15 +285,15 @@ button {
     /* iOS Safari */
     @media (max-width: 640px) {
         body {
-            padding-bottom: 35vh !important; /* Extra space for Safari URL bar */
+            padding-bottom: 15vh !important; /* Extra space for Safari URL bar */
         }
         
         #numberButtons {
-            margin-bottom: 15vh !important;
+            margin-bottom: 5vh !important;
         }
         
         #gameover {
-            padding-bottom: 20vh !important;
+            padding-bottom: 10vh !important;
         }
     }
 }
@@ -306,7 +304,7 @@ button {
     and (device-height: 667px) 
     and (-webkit-device-pixel-ratio: 2) {
     body {
-        padding-bottom: 40vh !important;
+        padding-bottom: 15vh !important;
     }
 }
 
@@ -315,7 +313,7 @@ button {
     and (device-height: 736px) 
     and (-webkit-device-pixel-ratio: 3) {
     body {
-        padding-bottom: 35vh !important;
+        padding-bottom: 12vh !important;
     }
 }
 
