@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@300;400;600;700;800&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +7,7 @@
 }
 
 body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-family: 'Fredoka', 'Comic Sans MS', cursive, sans-serif;
     background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
     min-height: 100vh;
     padding: 10px;
