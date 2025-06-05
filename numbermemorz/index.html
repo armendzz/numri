@@ -357,14 +357,13 @@
         }/* Responsive Design */
         @media (max-width: 480px) {
             body {
-                padding-bottom: 12vh; /* Extra space for Safari URL bar */
+                padding-bottom: 5vh; /* Extra space for Safari URL bar */
             }
-            
             .game-container {
-                padding: 1.5vh;
+                padding: 1vh;
                 width: 98vw;
-                height: calc(100vh - 17vh);
-                max-height: calc(100vh - 17vh);
+                height: calc(100vh - 10vh);
+                max-height: calc(100vh - 5vh);
             }
 
             .game-info {
@@ -388,12 +387,12 @@
         /* Touch devices (Safari mobile) */
         @media (hover: none) and (pointer: coarse) {
             body {
-                padding-bottom: 15vh !important;
+                padding-bottom: 5vh !important;
             }
             
             .game-container {
-                height: calc(100vh - 20vh) !important;
-                max-height: calc(100vh - 20vh) !important;
+                height: calc(100vh - 5vh) !important;
+                max-height: calc(100vh - 5vh) !important;
             }
               .number-buttons {
                 margin-bottom: 1vh !important; /* Reduced to make room for game buttons */
@@ -412,8 +411,8 @@
                 }
                 
                 .game-container {
-                    height: calc(100vh - 20vh) !important;
-                    max-height: calc(100vh - 20vh) !important;
+                    height: calc(100vh - 10vh) !important;
+                    max-height: calc(100vh - 10vh) !important;
                 }
             }
         }        /* Landscape orientation for mobile */
