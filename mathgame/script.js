@@ -1,3 +1,16 @@
+// Fix Safari URL bar viewport issue
+function setDynamicVH() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+// Set on load and resize
+window.addEventListener('load', setDynamicVH);
+window.addEventListener('resize', setDynamicVH);
+window.addEventListener('orientationchange', () => {
+    setTimeout(setDynamicVH, 100);
+});
+
 class MathGame {
     constructor() {
         this.maxResult = 10;
