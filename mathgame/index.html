@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathe-Spiel für Kinder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Startbildschirm -->
+        <div id="start-screen" class="screen active">
+            <h1>🧮 Mathe-Spiel 🧮</h1>
+            <p>Wähle deine Schwierigkeit:</p>
+            <div class="difficulty-buttons">
+                <button class="difficulty-btn" data-max="10">Bis 10</button>
+                <button class="difficulty-btn" data-max="20">Bis 20</button>
+                <button class="difficulty-btn" data-max="50">Bis 50</button>
+                <button class="difficulty-btn" data-max="100">Bis 100</button>
+            </div>
+        </div>
+
+        <!-- Spielbildschirm -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <h2>Schwierigkeit: <span id="current-difficulty"></span></h2>
+                <button id="back-btn" class="back-btn">← Zurück</button>
+            </div>
+            
+            <div class="problem-container">
+                <div id="problem" class="problem"></div>
+                <div class="answer-container">
+                    <input type="number" id="answer-input" placeholder="Deine Antwort...">
+                    <button id="check-btn" class="check-btn">Prüfen</button>
+                </div>
+            </div>
+
+            <div id="result-container" class="result-container hidden">
+                <div id="result-message" class="result-message"></div>
+                <button id="next-btn" class="next-btn">Nächste Aufgabe</button>
+            </div>
+
+            <div class="score-container">
+                <div class="score">
+                    <span>Richtig: <span id="correct-count">0</span></span>
+                    <span>Falsch: <span id="wrong-count">0</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

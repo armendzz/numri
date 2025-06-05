@@ -1,0 +1,326 @@
+/* Grundeinstellungen */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: linear-gradient(135deg, #ff9a56, #ffad7a);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    min-height: 500px;
+}
+
+/* Bildschirm-Management */
+.screen {
+    display: none;
+    padding: 30px;
+    text-align: center;
+    min-height: 500px;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Startbildschirm */
+#start-screen h1 {
+    font-size: 2.5rem;
+    color: #ff6b35;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#start-screen p {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.difficulty-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.difficulty-btn {
+    padding: 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+}
+
+.difficulty-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+}
+
+.difficulty-btn:active {
+    transform: translateY(0);
+}
+
+/* Spielbildschirm */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.game-header h2 {
+    color: #ff6b35;
+    font-size: 1.3rem;
+}
+
+.back-btn {
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #ff5252;
+    transform: translateY(-2px);
+}
+
+.problem-container {
+    margin-bottom: 30px;
+}
+
+.problem {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+    border-radius: 15px;
+    border: 3px solid #fdcb6e;
+}
+
+.answer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+#answer-input {
+    width: 200px;
+    padding: 15px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 3px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#answer-input:focus {
+    border-color: #4ecdc4;
+    box-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
+}
+
+.check-btn {
+    padding: 15px 30px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+}
+
+.check-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+}
+
+.check-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Ergebnis-Container */
+.result-container {
+    margin-bottom: 30px;
+}
+
+.result-container.hidden {
+    display: none;
+}
+
+.result-message {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.result-message.correct {
+    background: linear-gradient(135deg, #00b894, #55efc4);
+    color: white;
+    border: 3px solid #00a085;
+}
+
+.result-message.incorrect {
+    background: linear-gradient(135deg, #e17055, #fd79a8);
+    color: white;
+    border: 3px solid #d63031;
+}
+
+.next-btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #fd79a8, #e84393);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+}
+
+.next-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+}
+
+/* Punktestand */
+.score-container {
+    margin-top: 30px;
+}
+
+.score {
+    display: flex;
+    justify-content: space-around;
+    background: linear-gradient(135deg, #74b9ff, #0984e3);
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        margin: 0;
+        border-radius: 15px;
+    }
+    
+    .screen {
+        padding: 20px;
+        min-height: 400px;
+    }
+    
+    #start-screen h1 {
+        font-size: 2rem;
+    }
+    
+    #start-screen p {
+        font-size: 1.2rem;
+    }
+    
+    .difficulty-buttons {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .difficulty-btn {
+        padding: 18px;
+        font-size: 1.2rem;
+    }
+    
+    .problem {
+        font-size: 2.5rem;
+        padding: 15px;
+    }
+    
+    #answer-input {
+        width: 150px;
+        font-size: 1.3rem;
+        padding: 12px;
+    }
+    
+    .check-btn, .next-btn {
+        padding: 12px 25px;
+        font-size: 1.1rem;
+    }
+    
+    .result-message {
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .game-header h2 {
+        font-size: 1.1rem;
+    }
+    
+    .score {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    #start-screen h1 {
+        font-size: 1.8rem;
+    }
+    
+    .problem {
+        font-size: 2rem;
+        padding: 12px;
+    }
+    
+    #answer-input {
+        width: 130px;
+        font-size: 1.2rem;
+    }
+}
