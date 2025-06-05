@@ -246,7 +246,7 @@ body {
 @media (max-width: 768px) {
     body {
         padding: 10px;
-        padding-bottom: 30vh; /* Extra space for Safari URL bar */
+        padding-bottom: 15vh; /* Extra space for Safari URL bar */
     }
     
     .container {
@@ -316,7 +316,7 @@ body {
 
 @media (max-width: 480px) {
     body {
-        padding-bottom: 35vh; /* Extra space for Safari URL bar */
+        padding-bottom: 15vh; /* Extra space for Safari URL bar */
     }
     
     #start-screen h1 {
@@ -337,7 +337,7 @@ body {
 /* Touch devices (Safari mobile) */
 @media (hover: none) and (pointer: coarse) {
     body {
-        padding-bottom: 40vh !important;
+        padding-bottom: 15vh !important;
     }
 }
 
@@ -345,7 +345,7 @@ body {
 @supports (-webkit-touch-callout: none) {
     @media (max-width: 640px) {
         body {
-            padding-bottom: 45vh !important;
+            padding-bottom: 15vh !important;
         }
     }
 }
