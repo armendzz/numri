@@ -1,5 +1,19 @@
 // Number Drop Challenge - Enhanced Version
-class NumberDropGame {    constructor() {
+
+// Fix Safari URL bar viewport issue
+function setDynamicVH() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+// Set on load and resize
+window.addEventListener('load', setDynamicVH);
+window.addEventListener('resize', setDynamicVH);
+window.addEventListener('orientationchange', () => {
+    setTimeout(setDynamicVH, 100);
+});
+
+class NumberDropGame {constructor() {
         this.totalNumbers = 10;
         this.remainingNumbers = 10;
         this.correctAnswers = 0;

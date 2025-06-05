@@ -118,7 +118,7 @@
 @media (max-width: 640px) {
     body {
         font-size: 14px;
-        margin-bottom: 20vh; /* Extra space for Safari URL bar */
+        padding-bottom: 25vh; /* Extra space for Safari URL bar */
     }
     
     #object {
@@ -130,14 +130,18 @@
         font-size: 0.875rem;
         min-height: 2.5rem;
     }
-    
-    #numberButtons {
+      #numberButtons {
         gap: 0.25rem;
+        margin-bottom: 10vh; /* Ensure buttons are above Safari URL bar */
     }
-    
-    /* Compact layout for very small screens */
+      /* Compact layout for very small screens */
     .lg\:w-48 {
         width: 100%;
+    }
+    
+    /* Ensure game container has proper spacing */
+    #gameover {
+        padding-bottom: 15vh !important;
     }
 }
 
@@ -167,6 +171,7 @@
 @media (max-height: 600px) {
     body {
         font-size: 12px;
+        padding-bottom: 20vh; /* Extra space for Safari URL bar on short screens */
     }
     
     #object {
@@ -205,14 +210,16 @@ html, body {
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
     overflow: hidden;
-    position: fixed;
     width: 100%;
     -webkit-overflow-scrolling: touch;
-    margin-bottom: 20vh; /* Space for Safari URL bar */
 }
 
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
+    body {
+        padding-bottom: 30vh; /* Extra space for Safari URL bar on touch devices */
+    }
+    
     .number-btn {
         padding: 1rem;
         font-size: 1.25rem;
@@ -272,6 +279,43 @@ button {
 @media (max-height: 600px) {
     #dritarja {
         min-height: 120px;
+    }
+}
+
+/* Safari mobile specific fixes */
+@supports (-webkit-touch-callout: none) {
+    /* iOS Safari */
+    @media (max-width: 640px) {
+        body {
+            padding-bottom: 35vh !important; /* Extra space for Safari URL bar */
+        }
+        
+        #numberButtons {
+            margin-bottom: 15vh !important;
+        }
+        
+        #gameover {
+            padding-bottom: 20vh !important;
+        }
+    }
+}
+
+/* iPhone specific */
+@media only screen 
+    and (device-width: 375px) 
+    and (device-height: 667px) 
+    and (-webkit-device-pixel-ratio: 2) {
+    body {
+        padding-bottom: 40vh !important;
+    }
+}
+
+@media only screen 
+    and (device-width: 414px) 
+    and (device-height: 736px) 
+    and (-webkit-device-pixel-ratio: 3) {
+    body {
+        padding-bottom: 35vh !important;
     }
 }
 
