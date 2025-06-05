@@ -18,17 +18,43 @@ class TurtleGame {
         this.setupEventListeners();
         this.spawnApple();
         this.gameLoop();
-        
-        // Resize handler
+          // Resize handler
         window.addEventListener('resize', () => {
             this.updateGameAreaSize();
+            this.repositionElements();
+        });
+        
+        // Handle orientation change on mobile
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                this.updateGameAreaSize();
+                this.repositionElements();
+            }, 100);
         });
     }
     
     updateGameAreaSize() {
         const rect = this.gameArea.getBoundingClientRect();
-        this.gameAreaWidth = rect.width - 60; // Account for turtle size
-        this.gameAreaHeight = rect.height - 60;
+        this.gameAreaWidth = rect.width - 50; // Account for turtle size
+        this.gameAreaHeight = rect.height - 50;
+        
+        // Ensure turtle stays within bounds
+        this.turtlePosition.x = Math.min(this.turtlePosition.x, this.gameAreaWidth);
+        this.turtlePosition.y = Math.min(this.turtlePosition.y, this.gameAreaHeight);
+        this.turtle.style.left = this.turtlePosition.x + 'px';
+        this.turtle.style.top = this.turtlePosition.y + 'px';
+    }
+    
+    repositionElements() {
+        // Reposition apples if they're outside the new game area
+        this.apples.forEach(apple => {
+            if (apple.x > this.gameAreaWidth || apple.y > this.gameAreaHeight) {
+                apple.x = Math.min(apple.x, this.gameAreaWidth - 30);
+                apple.y = Math.min(apple.y, this.gameAreaHeight - 30);
+                apple.element.style.left = apple.x + 'px';
+                apple.element.style.top = apple.y + 'px';
+            }
+        });
     }
     
     setupEventListeners() {
@@ -79,9 +105,10 @@ class TurtleGame {
                 break;
         }
     }
-    
-    moveTurtle(direction) {
-        const step = 30;
+      moveTurtle(direction) {
+        // Smaller steps on mobile for better control
+        const isMobile = window.innerWidth <= 600;
+        const step = isMobile ? 20 : 30;
         let newX = this.turtlePosition.x;
         let newY = this.turtlePosition.y;
         
