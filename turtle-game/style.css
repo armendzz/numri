@@ -1,0 +1,212 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    color: #2E8B57;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.score {
+    background: #FFD700;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 3px solid #FFA500;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #8B4513;
+}
+
+.game-area {
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(to bottom, #87CEEB 0%, #90EE90 100%);
+    position: relative;
+    border: 4px solid #228B22;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.turtle {
+    position: absolute;
+    font-size: 40px;
+    left: 50px;
+    top: 50px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 10;
+    animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(2deg); }
+}
+
+.apple {
+    position: absolute;
+    font-size: 30px;
+    animation: bounce 1s ease-in-out infinite, sparkle 2s linear infinite;
+    cursor: pointer;
+    z-index: 5;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-10px) scale(1.1); }
+}
+
+@keyframes sparkle {
+    0%, 100% { filter: brightness(1) hue-rotate(0deg); }
+    25% { filter: brightness(1.2) hue-rotate(90deg); }
+    50% { filter: brightness(1.4) hue-rotate(180deg); }
+    75% { filter: brightness(1.2) hue-rotate(270deg); }
+}
+
+.controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.controls p {
+    font-size: 1.2em;
+    color: #2E8B57;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.control-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.horizontal-controls {
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    background: #32CD32;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1.5em;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #228B22;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.instructions {
+    background: #F0F8FF;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px dashed #4169E1;
+}
+
+.instructions h3 {
+    color: #4169E1;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.instructions ul {
+    list-style: none;
+    color: #2E8B57;
+}
+
+.instructions li {
+    margin: 8px 0;
+    font-size: 1.1em;
+    padding-left: 10px;
+}
+
+.collected-animation {
+    animation: collect 0.6s ease-out;
+}
+
+@keyframes collect {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5) rotate(180deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.turtle-moving {
+    animation: none;
+    transition: all 0.2s ease-out;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .header h1 {
+        font-size: 2em;
+    }
+    
+    .game-area {
+        height: 300px;
+    }
+    
+    .turtle {
+        font-size: 30px;
+    }
+    
+    .apple {
+        font-size: 25px;
+    }
+    
+    button {
+        padding: 12px 15px;
+        font-size: 1.2em;
+    }
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja e Breshkës - Turtle Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>🐢 Loja e Breshkës 🍎</h1>
+            <div class="score">
+                <span id="score-text">0 mollë</span>
+            </div>
+        </div>
+        
+        <div class="game-area" id="gameArea">
+            <div class="turtle" id="turtle">🐢</div>
+        </div>
+        
+        <div class="controls">
+            <p>Përdorni shigjetat për të lëvizur breshkën!</p>
+            <div class="control-buttons">
+                <button id="upBtn">↑</button>
+                <div class="horizontal-controls">
+                    <button id="leftBtn">←</button>
+                    <button id="downBtn">↓</button>
+                    <button id="rightBtn">→</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>Si të luani:</h3>
+            <ul>
+                <li>🎯 Lëvizni breshkën me shigjetat</li>
+                <li>🍎 Mblidhni mollët për të marrë pikë</li>
+                <li>🏆 Sa më shumë mollë, aq më mirë!</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
