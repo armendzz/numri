@@ -246,7 +246,7 @@ body {
 @media (max-width: 768px) {
     body {
         padding: 10px;
-        margin-bottom: 20vh; /* Extra space for Safari URL bar */
+        padding-bottom: 30vh; /* Extra space for Safari URL bar */
     }
     
     .container {
@@ -316,7 +316,7 @@ body {
 
 @media (max-width: 480px) {
     body {
-        margin-bottom: 20vh; /* Extra space for Safari URL bar */
+        padding-bottom: 35vh; /* Extra space for Safari URL bar */
     }
     
     #start-screen h1 {
@@ -331,5 +331,21 @@ body {
     #answer-input {
         width: 130px;
         font-size: 1.2rem;
+    }
+}
+
+/* Touch devices (Safari mobile) */
+@media (hover: none) and (pointer: coarse) {
+    body {
+        padding-bottom: 40vh !important;
+    }
+}
+
+/* Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 640px) {
+        body {
+            padding-bottom: 45vh !important;
+        }
     }
 }
